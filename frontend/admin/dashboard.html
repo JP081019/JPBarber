@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel — JP Barber | JP Dev Soluções Digitais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/jpbarber/frontend/assets/img/favicon.png" type="image/x-icon">
+  <style>
+    :root {
+      --white:#ffffff;--blue:#2563eb;--blue-light:#3b82f6;--blue-xlight:#dbeafe;
+      --blue-dark:#1d4ed8;--gray-light:#f1f5f9;--gray-mid:#e2e8f0;--gray-text:#64748b;
+      --black:#0f172a;--black-soft:#1e293b;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;
+      --shadow-sm:0 1px 3px rgba(15,23,42,0.08),0 1px 2px rgba(15,23,42,0.05);
+      --shadow-md:0 4px 16px rgba(15,23,42,0.10),0 2px 6px rgba(15,23,42,0.06);
+      --shadow-lg:0 12px 40px rgba(15,23,42,0.14),0 4px 12px rgba(15,23,42,0.08);
+      --shadow-blue:0 8px 30px rgba(37,99,235,0.25);
+      --radius:12px;--radius-lg:20px;
+      --transition:all 0.28s cubic-bezier(0.4,0,0.2,1);
+      --font-display:'Sora',sans-serif;--font-body:'DM Sans',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px}
+    body{font-family:var(--font-body);color:var(--black);background:var(--gray-light);-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    button{cursor:pointer;font-family:var(--font-body);border:none;outline:none}
+    h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.2;color:var(--black)}
+
+    /* ── LAYOUT ── */
+    .dashboard-layout{display:flex;min-height:100vh}
+
+    /* ── SIDEBAR ── */
+    .sidebar{width:260px;background:var(--black);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:var(--transition)}
+    .sidebar-logo{padding:22px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06);font-family:var(--font-display);font-weight:700;color:white;font-size:1rem}
+    .sidebar-logo .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+    .sidebar-nav{padding:16px 12px;flex:1;overflow-y:auto}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);padding:12px 10px 6px}
+    .sidebar-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:rgba(255,255,255,.6);font-size:.88rem;font-weight:500;margin-bottom:3px;transition:var(--transition);cursor:pointer}
+    .sidebar-link:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.9)}
+    .sidebar-link.active{background:rgba(37,99,235,.25);color:var(--blue-light)}
+    .sidebar-link .icon{font-size:1rem;width:20px;text-align:center}
+    .sidebar-footer{padding:16px 12px;border-top:1px solid rgba(255,255,255,.06)}
+    .sidebar-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;transition:var(--transition);cursor:pointer}
+    .sidebar-user:hover{background:rgba(255,255,255,.06)}
+    .user-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));display:flex;align-items:center;justify-content:center;color:white;font-size:.8rem;font-weight:700;flex-shrink:0}
+    .user-name{color:rgba(255,255,255,.9);font-size:.83rem;font-weight:600}
+    .user-role{color:rgba(255,255,255,.4);font-size:.72rem}
+
+    /* ── MAIN ── */
+    .main-content{margin-left:260px;flex:1;display:flex;flex-direction:column;min-height:100vh}
+
+    /* ── TOPBAR ── */
+    .topbar{background:white;border-bottom:1px solid var(--gray-mid);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .topbar-title{font-family:var(--font-display);font-weight:700;font-size:1.05rem}
+    .topbar-bread{font-size:.8rem;color:var(--gray-text)}
+    .topbar-right{display:flex;align-items:center;gap:10px}
+    .link-btn{display:flex;align-items:center;gap:6px;background:var(--blue-xlight);color:var(--blue);border:none;border-radius:8px;padding:7px 14px;font-size:.8rem;font-weight:600;font-family:var(--font-body);cursor:pointer;transition:var(--transition)}
+    .link-btn:hover{background:var(--blue);color:white}
+
+    /* ── BODY ── */
+    .dashboard-body{padding:28px;flex:1}
+
+    /* ── SECTIONS ── */
+    .dash-section{display:none}
+    .dash-section.active{display:block}
+
+    /* ── STATS GRID ── */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+    .stat-card{background:white;border-radius:var(--radius-lg);padding:22px;border:1px solid var(--gray-mid);transition:var(--transition)}
+    .stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+    .stat-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+    .stat-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+    .stat-icon-blue{background:var(--blue-xlight)}
+    .stat-icon-green{background:#d1fae5}
+    .stat-icon-orange{background:#fef3c7}
+    .stat-icon-purple{background:#ede9fe}
+    .stat-value{font-family:var(--font-display);font-size:2rem;font-weight:800;color:var(--black);line-height:1;margin-bottom:4px}
+    .stat-label{font-size:.82rem;color:var(--gray-text);font-weight:500}
+
+    /* ── SECTION CARD ── */
+    .section-card{background:white;border-radius:var(--radius-lg);border:1px solid var(--gray-mid);overflow:hidden;margin-bottom:20px}
+    .section-card-header{padding:18px 24px;border-bottom:1px solid var(--gray-mid);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .section-card-title{font-family:var(--font-display);font-size:1rem;font-weight:700}
+    .section-card-body{padding:20px 24px}
+
+    /* ── AGENDA ROWS ── */
+    .agenda-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--gray-mid);flex-wrap:wrap}
+    .agenda-row:last-child{border-bottom:none}
+    .agenda-time{font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--blue);min-width:50px}
+    .agenda-info{flex:1}
+    .agenda-client{font-weight:600;font-size:.92rem}
+    .agenda-service{font-size:.78rem;color:var(--gray-text);margin-top:2px}
+    .agenda-phone{font-size:.75rem;color:var(--gray-text);margin-top:2px}
+    .agenda-price{font-family:var(--font-display);font-weight:700;color:var(--blue);font-size:.95rem;white-space:nowrap}
+    .agenda-actions{display:flex;gap:6px;flex-wrap:wrap}
+
+    /* ── PRÓXIMOS ── */
+    .proximo-item{padding:10px 0;border-bottom:1px solid var(--gray-mid)}
+    .proximo-item:last-child{border-bottom:none}
+    .proximo-data{font-size:.72rem;color:var(--gray-text);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:2px}
+    .proximo-info{font-size:.88rem;color:var(--black-soft)}
+
+    /* ── SERVICOS ── */
+    .servico-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-mid);flex-wrap:wrap}
+    .servico-row:last-child{border-bottom:none}
+    .servico-info{flex:1}
+    .servico-name{font-weight:600;font-size:.92rem}
+    .servico-meta{font-size:.78rem;color:var(--gray-text);margin-top:2px}
+    .servico-status{min-width:70px}
+    .servico-actions{display:flex;gap:6px}
+
+    /* ── FORM ── */
+    .form-group{margin-bottom:16px}
+    .form-label{display:block;font-size:.85rem;font-weight:600;color:var(--black-soft);margin-bottom:7px}
+    .form-input{width:100%;padding:11px 14px;border:1.5px solid var(--gray-mid);border-radius:10px;font-size:.9rem;font-family:var(--font-body);color:var(--black);background:white;transition:var(--transition);outline:none}
+    .form-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+    .form-input::placeholder{color:#94a3b8}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+
+    /* ── WORKDAYS ── */
+    .workdays{display:flex;gap:8px;flex-wrap:wrap}
+    .workday-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--gray-mid);background:white;font-size:.78rem;font-weight:600;color:var(--gray-text);cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center}
+    .workday-btn.selected{background:var(--blue);border-color:var(--blue);color:white}
+
+    /* ── BUTTONS ── */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 18px;border-radius:9px;font-size:.85rem;font-weight:600;transition:var(--transition);cursor:pointer;border:none;white-space:nowrap;font-family:var(--font-body)}
+    .btn-primary{background:var(--blue);color:white;box-shadow:var(--shadow-blue)}
+    .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px)}
+    .btn-secondary{background:var(--gray-light);color:var(--black)}
+    .btn-secondary:hover{background:var(--gray-mid)}
+    .btn-success{background:#d1fae5;color:#059669}
+    .btn-success:hover{background:#a7f3d0}
+    .btn-warning{background:#fef3c7;color:#d97706}
+    .btn-warning:hover{background:#fde68a}
+    .btn-danger{background:#fee2e2;color:#dc2626}
+    .btn-danger:hover{background:#fecaca}
+    .btn-sm{padding:6px 12px;font-size:.78rem;border-radius:7px}
+    .btn-block{width:100%}
+
+    /* ── BADGES ── */
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600}
+    .badge-blue{background:var(--blue-xlight);color:var(--blue)}
+    .badge-success{background:#d1fae5;color:#059669}
+    .badge-warning{background:#fef3c7;color:#d97706}
+    .badge-danger{background:#fee2e2;color:#dc2626}
+    .badge-gray{background:var(--gray-light);color:var(--gray-text)}
+
+    /* ── ALERTS ── */
+    .alert{padding:12px 16px;border-radius:10px;font-size:.88rem;font-weight:500;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .alert-warning{background:#fef3c7;color:#92400e;border-left:3px solid var(--warning)}
+    .alert-danger{background:#fee2e2;color:#991b1b;border-left:3px solid var(--danger)}
+    .alert-success{background:#d1fae5;color:#065f46;border-left:3px solid var(--success)}
+
+    /* ── EMPTY STATE ── */
+    .empty-state{text-align:center;padding:48px 24px;color:var(--gray-text)}
+    .empty-icon{font-size:3rem;margin-bottom:12px;opacity:.4}
+    .empty-title{font-size:1rem;font-weight:600;color:var(--black-soft);margin-bottom:6px}
+    .empty-desc{font-size:.85rem}
+
+    /* ── LOADING ── */
+    .loading{text-align:center;padding:40px;color:var(--gray-text);font-size:.9rem}
+
+    /* ── MOBILE ── */
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+    .sidebar-overlay.open{display:block}
+    .mobile-menu-btn{display:none;width:38px;height:38px;border-radius:9px;background:var(--gray-light);border:none;cursor:pointer;align-items:center;justify-content:center;font-size:1.1rem}
+
+    /* ── LINK COPY ── */
+    .link-box{background:var(--blue-xlight);border:1.5px solid rgba(37,99,235,.2);border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+    .link-box-url{font-size:.82rem;color:var(--blue-dark);font-weight:500;word-break:break-all}
+
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0)}
+      .main-content{margin-left:0}
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .mobile-menu-btn{display:flex}
+      .form-row,.form-row-3{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .dashboard-body{padding:16px}
+    }
+  </style>
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+  <!-- ══════════════════════════════
+       SIDEBAR
+  ══════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">✂️</div>
+      <span>JP <span style="color:rgba(255,255,255,.5);">Barber</span></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Principal</div>
+      <div class="sidebar-link active" data-section="dashboard">
+        <span class="icon">📊</span> Dashboard
+      </div>
+      <div class="sidebar-link" data-section="agenda">
+        <span class="icon">📅</span> Agenda
+      </div>
+      <div class="sidebar-link" data-section="servicos">
+        <span class="icon">✂️</span> Serviços
+      </div>
+
+      <div class="sidebar-section-label" style="margin-top:12px;">Conta</div>
+      <div class="sidebar-link" data-section="configuracoes">
+        <span class="icon">⚙️</span> Configurações
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);">
+        <a href="../public/index.html" class="sidebar-link" style="font-size:.82rem;color:rgba(255,255,255,.4);">
+          <span class="icon">🌐</span> Ver site
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="logoutBtn">
+        <div class="user-avatar">JP</div>
+        <div>
+          <div class="user-name" id="userName">Carregando...</div>
+          <div class="user-role">Administrador</div>
+        </div>
+        <span style="margin-left:auto;font-size:.8rem;opacity:.4;">⏏</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ══════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════ -->
+  <div class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="mobile-menu-btn" id="menuBtn">☰</button>
+        <div>
+          <div class="topbar-title" id="topbarTitle">Dashboard</div>
+          <div class="topbar-bread" id="topbarBread">Visão geral</div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button id="copyLinkBtn"></button>
+        <div class="user-avatar" style="cursor:pointer;" id="topbarLogout" title="Sair">JP</div>
+      </div>
+    </header>
+
+    <!-- BODY -->
+    <div class="dashboard-body">
+
+      <!-- ALERTA DE PLANO -->
+      <div id="alertaPlano"></div>
+
+      <!-- ══════════ SECTION: DASHBOARD ══════════ -->
+      <div id="section-dashboard" class="dash-section active">
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon stat-icon-blue">📅</div>
+              <span style="font-size:.72rem;color:var(--gray-text);font-weight:600;">HOJE</span>
+            </div>
+            <div class="stat-value" id="stat-hoje">—</div>
+            <div class="stat-label">Agendamentos hoje</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon stat-icon-green">📊</div>
+              <span style="font-size:.72rem;color:var(--gray-text);font-weight:600;">MÊS</span>
+            </div>
+            <div class="stat-value" id="stat-mes">—</div>
+            <div class="stat-label">Agendamentos no mês</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon stat-icon-orange">💰</div>
+              <span style="font-size:.72rem;color:var(--gray-text);font-weight:600;">FATURAMENTO</span>
+            </div>
+            <div class="stat-value" id="stat-faturamento" style="font-size:1.4rem;">—</div>
+            <div class="stat-label">Estimativa do mês</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-icon stat-icon-purple">📋</div>
+              <span style="font-size:.72rem;color:var(--gray-text);font-weight:600;">PLANO</span>
+            </div>
+            <div class="stat-value" id="stat-limite" style="font-size:1.4rem;">—</div>
+            <div class="stat-label">Uso do plano</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+          <!-- Agenda de hoje -->
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">📅 Agenda de hoje</div>
+              <button class="btn btn-sm btn-secondary" onclick="renderAgendamentosHoje()">🔄 Atualizar</button>
+            </div>
+            <div class="section-card-body">
+              <div id="agendamentosHoje"><div class="loading">Carregando...</div></div>
+            </div>
+          </div>
+
+          <!-- Próximos -->
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">🔜 Próximos agendamentos</div>
+            </div>
+            <div class="section-card-body">
+              <div id="proximosAgendamentos"><div class="loading">Carregando...</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══════════ SECTION: AGENDA ══════════ -->
+      <div id="section-agenda" class="dash-section">
+
+        <div class="section-card">
+          <div class="section-card-header">
+            <div class="section-card-title">📅 Agenda completa</div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+              <input type="date" id="filtroData" class="form-input" style="width:160px;padding:8px 12px;">
+              <select id="filtroStatus" class="form-input" style="width:150px;padding:8px 12px;">
+                <option value="">Todos os status</option>
+                <option value="confirmed">Confirmados</option>
+                <option value="completed">Concluídos</option>
+                <option value="cancelled">Cancelados</option>
+                <option value="no_show">Faltaram</option>
+              </select>
+              <button class="btn btn-primary btn-sm" onclick="filtrarAgenda()">🔍 Filtrar</button>
+            </div>
+          </div>
+          <div class="section-card-body">
+            <div id="agendaCompleta"><div class="loading">Selecione uma data para filtrar</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════ SECTION: SERVIÇOS ══════════ -->
+      <div id="section-servicos" class="dash-section">
+
+        <!-- Novo serviço -->
+        <div class="section-card" style="margin-bottom:20px;">
+          <div class="section-card-header">
+            <div class="section-card-title">➕ Novo serviço</div>
+          </div>
+          <div class="section-card-body">
+            <div class="form-row-3">
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Nome do serviço *</label>
+                <input class="form-input" type="text" id="sv-nome" placeholder="Ex: Corte Social">
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Duração (minutos) *</label>
+                <input class="form-input" type="number" id="sv-duracao" placeholder="30" min="5" step="5">
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label">Preço (R$) *</label>
+                <input class="form-input" type="number" id="sv-preco" placeholder="35.00" min="0" step="0.50">
+              </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top:16px;" onclick="salvarNovoServico()">
+              ✅ Salvar serviço
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de serviços -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <div class="section-card-title">✂️ Serviços cadastrados</div>
+            <button class="btn btn-sm btn-secondary" onclick="initServicos()">🔄 Atualizar</button>
+          </div>
+          <div class="section-card-body">
+            <div id="servicosList"><div class="loading">Carregando...</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ══════════ SECTION: CONFIGURAÇÕES ══════════ -->
+      <div id="section-configuracoes" class="dash-section">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+          <!-- Dados da barbearia -->
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">✂️ Dados da barbearia</div>
+            </div>
+            <div class="section-card-body">
+              <div class="form-group">
+                <label class="form-label">Nome da barbearia</label>
+                <input class="form-input" type="text" id="cfg-nome" placeholder="Barbearia do Zé">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nome do barbeiro</label>
+                <input class="form-input" type="text" id="cfg-barbeiro" placeholder="Seu nome">
+              </div>
+              <div class="form-group">
+                <label class="form-label">WhatsApp</label>
+                <input class="form-input" type="tel" id="cfg-whatsapp" placeholder="(48) 99999-9999">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Cidade</label>
+                <input class="form-input" type="text" id="cfg-cidade" placeholder="São Paulo, SP">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-input" id="cfg-descricao" rows="3" placeholder="Fale um pouco sobre sua barbearia..." style="resize:vertical;"></textarea>
+              </div>
+              <button class="btn btn-primary btn-block" onclick="salvarConfiguracoes()">
+                💾 Salvar alterações
+              </button>
+            </div>
+          </div>
+
+          <!-- Horários de funcionamento -->
+          <div>
+            <div class="section-card" style="margin-bottom:20px;">
+              <div class="section-card-header">
+                <div class="section-card-title">⏰ Horários de funcionamento</div>
+              </div>
+              <div class="section-card-body">
+                <div class="form-group">
+                  <label class="form-label">Dias de funcionamento</label>
+                  <div class="workdays" id="workdays">
+                    <button type="button" class="workday-btn" data-day="0">Dom</button>
+                    <button type="button" class="workday-btn selected" data-day="1">Seg</button>
+                    <button type="button" class="workday-btn selected" data-day="2">Ter</button>
+                    <button type="button" class="workday-btn selected" data-day="3">Qua</button>
+                    <button type="button" class="workday-btn selected" data-day="4">Qui</button>
+                    <button type="button" class="workday-btn selected" data-day="5">Sex</button>
+                    <button type="button" class="workday-btn selected" data-day="6">Sáb</button>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group" style="margin:0;">
+                    <label class="form-label">Abertura</label>
+                    <input class="form-input" type="number" id="cfg-inicio" value="9" min="0" max="23">
+                  </div>
+                  <div class="form-group" style="margin:0;">
+                    <label class="form-label">Fechamento</label>
+                    <input class="form-input" type="number" id="cfg-fim" value="19" min="0" max="23">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:14px;">
+                  <label class="form-label">Intervalo entre atendimentos (min)</label>
+                  <select class="form-input" id="cfg-intervalo">
+                    <option value="15">15 minutos</option>
+                    <option value="30" selected>30 minutos</option>
+                    <option value="45">45 minutos</option>
+                    <option value="60">60 minutos</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary btn-block" onclick="salvarConfiguracoes()">
+                  💾 Salvar horários
+                </button>
+              </div>
+            </div>
+
+            <!-- Link da barbearia -->
+            <div class="section-card">
+              <div class="section-card-header">
+                <div class="section-card-title">🔗 Link de agendamento</div>
+              </div>
+              <div class="section-card-body">
+                <div class="link-box">
+                  <span class="link-box-url" id="meuLink">Carregando...</span>
+                  <button class="btn btn-sm btn-primary" onclick="copiarLink()">📋 Copiar</button>
+                </div>
+                <p style="font-size:.8rem;color:var(--gray-text);line-height:1.6;">
+                  Compartilhe este link com seus clientes via WhatsApp, Instagram ou onde quiser.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /dashboard-body -->
+  </div><!-- /main-content -->
+</div><!-- /dashboard-layout -->
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/barbershop.js"></script>
+<script src="../js/services.js"></script>
+<script src="../js/booking.js"></script>
+<script src="../js/dashboard.js"></script>
+
+<script>
+  // ── SIDEBAR NAVIGATION ──
+  var sidebarLinks = document.querySelectorAll('[data-section]');
+  var titles = {
+    dashboard:      ['Dashboard',      'Visão geral'],
+    agenda:         ['Agenda',         'Todos os agendamentos'],
+    servicos:       ['Serviços',       'Gerenciar serviços'],
+    configuracoes:  ['Configurações',  'Dados e horários']
+  };
+
+  sidebarLinks.forEach(function(link) {
+    link.addEventListener('click', async function() {
+      var section = this.dataset.section;
+
+      // Atualizar sidebar
+      sidebarLinks.forEach(function(l) { l.classList.remove('active'); });
+      this.classList.add('active');
+
+      // Atualizar topbar
+      if (titles[section]) {
+        document.getElementById('topbarTitle').textContent = titles[section][0];
+        document.getElementById('topbarBread').textContent = titles[section][1];
+      }
+
+      // Mostrar seção
+      document.querySelectorAll('.dash-section').forEach(function(s) {
+        s.classList.remove('active');
+      });
+      document.getElementById('section-' + section).classList.add('active');
+
+      // Carregar dados da seção
+      if (section === 'servicos')       await initServicos();
+      if (section === 'configuracoes')  await carregarConfiguracoes();
+
+      // Fechar sidebar no mobile
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    });
+  });
+
+  // ── MOBILE SIDEBAR ──
+  document.getElementById('menuBtn').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+  });
+  document.getElementById('sidebarOverlay').addEventListener('click', function() {
+    document.getElementById('sidebar').classList.remove('open');
+    this.classList.remove('open');
+  });
+
+  // ── LOGOUT ──
+  document.getElementById('logoutBtn').addEventListener('click', logoutDashboard);
+  document.getElementById('topbarLogout').addEventListener('click', logoutDashboard);
+
+  // ── COPIAR LINK ──
+  function copiarLink() {
+    var link = document.getElementById('meuLink').textContent;
+    navigator.clipboard.writeText(link).then(function() {
+      showToast('🔗 Link copiado!');
+    });
+  }
+  document.getElementById('copyLinkBtn').addEventListener('click', copiarLink);
+
+  // ── FILTRAR AGENDA ──
+  async function filtrarAgenda() {
+    var data   = document.getElementById('filtroData').value;
+    var status = document.getElementById('filtroStatus').value;
+    var container = document.getElementById('agendaCompleta');
+
+    container.innerHTML = '<div class="loading">Buscando...</div>';
+
+    var filtros = {};
+    if (data)   filtros.data   = data;
+    if (status) filtros.status = status;
+
+    var agendamentos = await getAgendamentos(window.BARBEARIA.id, filtros);
+
+    if (!agendamentos.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">📅</div>
+          <div class="empty-title">Nenhum agendamento encontrado</div>
+          <div class="empty-desc">Tente outros filtros</div>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = agendamentos.map(function(a) {
+      return `
+        <div class="agenda-row">
+          <div class="agenda-time">${a.start_time.slice(0,5)}</div>
+          <div class="agenda-info">
+            <div class="agenda-client">${a.client_name}</div>
+            <div class="agenda-service">${a.services?.name || '—'} · ${formatarData(a.date)}</div>
+            <div class="agenda-phone">📱 ${a.client_phone}</div>
+          </div>
+          <div class="agenda-price">${formatarPreco(a.services?.price || 0)}</div>
+          <div class="agenda-actions">
+            <span class="badge badge-${badgeStatus(a.status)}">${labelStatus(a.status)}</span>
+            ${a.status === 'confirmed' ? `
+              <button onclick="marcarConcluido('${a.id}');filtrarAgenda();" class="btn btn-sm btn-success">✅</button>
+              <button onclick="cancelarAg('${a.id}');filtrarAgenda();" class="btn btn-sm btn-danger">✕</button>
+            ` : ''}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── CARREGAR CONFIGURAÇÕES ──
+  async function carregarConfiguracoes() {
+    var barbearia = window.BARBEARIA;
+    if (!barbearia) return;
+
+    // Preencher campos
+    var campos = {
+      'cfg-nome':      barbearia.name,
+      'cfg-barbeiro':  barbearia.owner_name,
+      'cfg-whatsapp':  barbearia.whatsapp,
+      'cfg-cidade':    barbearia.city || '',
+      'cfg-descricao': barbearia.description || '',
+      'cfg-inicio':    barbearia.start_hour,
+      'cfg-fim':       barbearia.end_hour,
+      'cfg-intervalo': barbearia.interval_min
+    };
+
+    Object.keys(campos).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.value = campos[id];
+    });
+
+    // Marcar dias de funcionamento
+    var workDays = barbearia.work_days || [1,2,3,4,5,6];
+    document.querySelectorAll('.workday-btn').forEach(function(btn) {
+      var day = parseInt(btn.dataset.day);
+      btn.classList.toggle('selected', workDays.includes(day));
+    });
+
+    var linkEl = document.getElementById('meuLink');
+
+    if (linkEl) {
+      const link = window.location.origin + 'https://jpbarber.netlify.app/public/barbearia/' + barbearia.slug;
+      linkEl.textContent = link;
+
+      // (opcional) deixar clicável
+      linkEl.href = link;
+    }
+  }
+
+  // ── TOGGLE DIAS DA SEMANA ──
+  document.querySelectorAll('.workday-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('selected');
+    });
+  });
+
+  // ── DEFINIR DATA PADRÃO DO FILTRO ──
+  var filtroData = document.getElementById('filtroData');
+  if (filtroData) {
+    filtroData.value = new Date().toISOString().split('T')[0];
+  }
+
+  // ── INICIALIZAR ──
+  document.addEventListener('DOMContentLoaded', function() {
+    initDashboard();
+  });
+</script>
+</body>
+</html>

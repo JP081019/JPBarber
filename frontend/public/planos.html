@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Planos — JP Barber | JP Dev Soluções Digitais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/jpbarber/frontend/assets/img/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/jpbarber/frontend/css/style.css">
+    <link rel="stylesheet" href="/jpbarber/frontend/css/public.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon">✂️</div>
+      <span>JP <span class="brand">Barber</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#funcionalidades">Funcionalidades</a>
+      <a href="index.html#como-funciona">Como funciona</a>
+      <a href="planos.html" class="active">Planos</a>
+      <a href="login.html">Login</a>
+    </div>
+    <div class="nav-cta">
+      <a href="cadastro.html" class="btn btn-primary btn-sm">Começar grátis →</a>
+      <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container-sm">
+    <div class="section-eyebrow">Planos e Preços</div>
+    <h1 class="display-xl">Simples, transparente<br>e sem surpresas</h1>
+    <p>Sem taxa de adesão. Sem contrato de fidelidade. Cancele quando quiser.</p>
+
+    <!-- BILLING TOGGLE -->
+    <div class="billing-toggle">
+      <span class="active" id="labelMensal"></span>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="section">
+  <div class="container">
+    <div class="pricing-grid">
+
+      <!-- BÁSICO -->
+      <div class="pricing-card reveal">
+        <div class="plan-name">Básico</div>
+        <div class="plan-price">
+          <span class="currency">R$</span>
+          <span class="amount" data-mensal="49" data-anual="39">49</span>
+          <span class="period">,90/mês</span>
+          <span class="original" id="orig-basico" style="display:none;">R$ 49,90</span>
+        </div>
+        <p class="plan-desc">Para barbearias que estão começando a profissionalizar o agendamento online.</p>
+        <div class="plan-features">
+          <div class="plan-feature"><span class="check">✓</span> Até 30 agendamentos/mês</div>
+          <div class="plan-feature"><span class="check">✓</span> Link exclusivo de agendamento</div>
+          <div class="plan-feature"><span class="check">✓</span> Cadastro de serviços e preços</div>
+          <div class="plan-feature"><span class="check">✓</span> Dashboard básico</div>
+          <div class="plan-feature"><span class="check">✓</span> Suporte por email</div>
+          <div class="plan-feature" style="opacity:.4;"><span class="check check-gray">—</span> Agendamentos ilimitados</div>
+          <div class="plan-feature" style="opacity:.4;"><span class="check check-gray">—</span> Métricas avançadas</div>
+          <div class="plan-feature" style="opacity:.4;"><span class="check check-gray">—</span> Notificações WhatsApp</div>
+        </div>
+          <button id="btn-basico" onclick="iniciarPagamento('basico')" class="btn btn-outline btn-block">
+          Assinar plano
+          </button>
+      </div>
+
+      <!-- PRÓ -->
+      <div class="pricing-card popular reveal" style="transition-delay:.1s;">
+        <div class="popular-badge">⭐ Mais popular</div>
+        <div class="plan-name" style="color:var(--blue);">Pró</div>
+        <div class="plan-price">
+          <span class="currency">R$</span>
+          <span class="amount" data-mensal="99" data-anual="79">99</span>
+          <span class="period">,90/mês</span>
+          <span class="original" id="orig-pro" style="display:none;">R$ 99,90</span>
+        </div>
+        <p class="plan-desc">Para barbearias em crescimento que precisam de controle total e mais clientes.</p>
+        <div class="plan-features">
+          <div class="plan-feature"><span class="check check-blue">✓</span> Agendamentos ilimitados</div>
+          <div class="plan-feature"><span class="check check-blue">✓</span> Link exclusivo de agendamento</div>
+          <div class="plan-feature"><span class="check check-blue">✓</span> Gestão completa de serviços</div>
+          <div class="plan-feature"><span class="check check-blue">✓</span> Dashboard com métricas</div>
+          <div class="plan-feature"><span class="check check-blue">✓</span> Confirmações automáticas</div>
+          <div class="plan-feature"><span class="check check-blue">✓</span> Suporte prioritário</div>
+          <div class="plan-feature" style="opacity:.4;"><span class="check check-gray">—</span> Notificações WhatsApp</div>
+          <div class="plan-feature" style="opacity:.4;"><span class="check check-gray">—</span> Multi-barbeiros</div>
+        </div>
+          <button id="btn-pro" onclick="iniciarPagamento('pro')" class="btn btn-primary btn-block">
+          Assinar plano
+          </button>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="pricing-card reveal" style="transition-delay:.2s;">
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">
+          <span class="currency">R$</span>
+          <span class="amount" data-mensal="169" data-anual="135">169</span>
+          <span class="period">,90/mês</span>
+          <span class="original" id="orig-premium" style="display:none;">R$ 169,90</span>
+        </div>
+        <p class="plan-desc">Para barbearias maiores com múltiplos barbeiros e alto volume de atendimentos.</p>
+        <div class="plan-features">
+          <div class="plan-feature"><span class="check">✓</span> Tudo do plano Pró</div>
+          <div class="plan-feature"><span class="check">✓</span> Notificações via WhatsApp</div>
+          <div class="plan-feature"><span class="check">✓</span> Suporte a multi-barbeiros</div>
+          <div class="plan-feature"><span class="check">✓</span> Agenda separada por barbeiro</div>
+          <div class="plan-feature"><span class="check">✓</span> Relatórios avançados + exportação</div>
+          <div class="plan-feature"><span class="check">✓</span> Suporte prioritário 24h</div>
+          <div class="plan-feature"><span class="check">✓</span> Onboarding personalizado</div>
+          <div class="plan-feature"><span class="check">✓</span> SLA de atendimento</div>
+        </div>
+          <button id="btn-premium" onclick="iniciarPagamento('premium')" class="btn btn-outline btn-block">
+          Assinar plano
+          </button>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:32px;font-size:.85rem;color:var(--gray-text);">
+      🔒 Pagamento seguro via Mercado Pago · Cancele a qualquer momento · Sem taxas escondidas
+    </p>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section compare-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Comparação</div>
+      <h2 class="display-md">Compare os planos<br>em detalhes</h2>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Funcionalidade</th>
+            <th>Básico</th>
+            <th class="highlight-col">Pró</th>
+            <th>Premium</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row"><td colspan="4">Agendamentos</td></tr>
+          <tr><td>Agendamentos por mês</td><td>Até 30</td><td>Ilimitados</td><td>Ilimitados</td></tr>
+          <tr><td>Link exclusivo de agendamento</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Controle de conflitos de horário</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Cálculo automático por duração</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+
+          <tr class="cat-row"><td colspan="4">Serviços e preços</td></tr>
+          <tr><td>Cadastro de serviços</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Definir preço e duração</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+
+          <tr class="cat-row"><td colspan="4">Dashboard e relatórios</td></tr>
+          <tr><td>Dashboard básico</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Métricas de faturamento</td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Dias mais movimentados</td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Relatórios + exportação</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td></tr>
+
+          <tr class="cat-row"><td colspan="4">Notificações</td></tr>
+          <tr><td>Confirmação automática ao cliente</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Alerta de novo agendamento (WhatsApp)</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td></tr>
+
+          <tr class="cat-row"><td colspan="4">Equipe</td></tr>
+          <tr><td>Multi-barbeiros</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Agenda separada por barbeiro</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td></tr>
+
+          <tr class="cat-row"><td colspan="4">Suporte</td></tr>
+          <tr><td>Suporte por email</td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Suporte prioritário</td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td><td><span class="check-icon">✅</span></td></tr>
+          <tr><td>Suporte 24h + onboarding</td><td><span class="cross-icon">✗</span></td><td><span class="cross-icon">✗</span></td><td><span class="check-icon">✅</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container-sm">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Dúvidas</div>
+      <h2 class="display-md">Perguntas frequentes</h2>
+    </div>
+    <div id="faqList">
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <h4>Preciso de cartão de crédito para começar?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Não! Você pode criar sua conta e configurar a barbearia gratuitamente. O pagamento só é necessário para ativar o plano escolhido.</p>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <h4>Posso trocar de plano depois?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Sim. Você pode fazer upgrade ou downgrade a qualquer momento. O ajuste é feito de forma proporcional no próximo ciclo de cobrança.</p>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <h4>Como meu cliente agenda um horário?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Você compartilha o link exclusivo da sua barbearia (ex: jpbarber.com/barbearia-do-ze). O cliente acessa, escolhe o serviço, a data e o horário disponível — sem precisar instalar nada ou criar conta.</p>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <h4>O que acontece se eu atingir o limite do plano Básico?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">O sistema exibirá um aviso no seu painel e novos agendamentos serão bloqueados automaticamente até o início do próximo mês ou até você fazer upgrade.</p>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <h4>Posso cancelar quando quiser?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">Sim, sem multa e sem burocracia. Você mantém acesso até o fim do período já pago.</p>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question">
+          <h4>Como funciona o pagamento?</h4>
+          <span class="faq-toggle">+</span>
+        </div>
+        <p class="faq-answer">O pagamento é feito de forma segura via Mercado Pago, com cobrança mensal ou anual (com desconto). Aceitamos cartão de crédito, boleto e Pix.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-sm">
+  <div class="cta-section reveal">
+    <div style="position:relative;z-index:1;">
+      <h2 class="display-md">Comece hoje mesmo,<br>sem compromisso.</h2>
+      <p>Configure sua agenda em menos de 5 minutos. Cancele quando quiser.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="cadastro.html" class="btn btn-white btn-xl">🚀 Criar minha conta grátis</a>
+        <a href="index.html#como-funciona" class="btn btn-xl" style="background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3);">👁 Ver como funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Contato</div>
+      <h2 class="display-md">Ficou com dúvidas?</h2>
+      <p>Fale com a gente pelo canal de sua preferência.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="https://wa.me/5548996656319" target="_blank" class="contact-link"><span style="font-size:1.2rem;">📱</span><div><div style="font-weight:600;font-size:.85rem;">WhatsApp</div><div style="font-size:.75rem;color:var(--gray-text);">+55 (48) 99656-6319</div></div></a>
+      <a href="https://instagram.com/jp.dev081019" target="_blank" class="contact-link"><span style="font-size:1.2rem;">📸</span><div><div style="font-weight:600;font-size:.85rem;">Instagram</div><div style="font-size:.75rem;color:var(--gray-text);">@jp.dev081019</div></div></a>
+      <a href="mailto:joao081019pedrodasilv@gmail.com" class="contact-link"><span style="font-size:1.2rem;">📧</span><div><div style="font-weight:600;font-size:.85rem;">Email</div><div style="font-size:.75rem;color:var(--gray-text);">joao081019pedrodasilv@gmail.com</div></div></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 JP Dev Soluções Digitais. Todos os direitos reservados.</p>
+  <p>Desenvolvido por João Pedro da Silva</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/supabase.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/barbershop.js"></script>
+<script src="../js/payment.js"></script>
+
+<script>
+  // Navbar
+  window.addEventListener('scroll', function() {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('mobile-open');
+  });
+
+  // Reveal
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+
+  // Verificar retorno do pagamento ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      verificarRetornoPagamento();
+    });
+  });
+</script>
+</body>
+</html>

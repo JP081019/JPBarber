@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  connect-src 'self' https://*.supabase.co;
+  script-src 'self' https://cdn.jsdelivr.net;
+  style-src 'self' 'unsafe-inline';
+">
+  <title>Agendar Horário — Barbearia do Zé | JP Barber</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/jpbarber/frontend/assets/img/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/jpbarber/frontend/css/style.css">
+  <link rel="stylesheet" href="/jpbarber/frontend/css/public.css">
+</head>
+<body>
+
+  <!-- ── HEADER DA BARBEARIA ── -->
+  <div class="barber-header">
+    <div class="barber-avatar">✂️</div>
+    <div class="barber-name" id="pageBarberName"></div>
+    <div class="barber-tagline" id="pageBarberTagline">Cortes modernos com qualidade e estilo</div>
+    <div class="barber-info">
+    </div>
+  </div>
+
+  <!-- ── STEPS BAR ── -->
+  <div class="steps-bar">
+    <div class="steps-inner">
+      <div class="step-item-bar">
+        <div class="step-circle active" id="sc1">1</div>
+        <span class="step-label active" id="sl1">Serviço</span>
+      </div>
+      <div class="step-line-bar" id="sline1"></div>
+      <div class="step-item-bar">
+        <div class="step-circle" id="sc2">2</div>
+        <span class="step-label" id="sl2">Data e hora</span>
+      </div>
+      <div class="step-line-bar" id="sline2"></div>
+      <div class="step-item-bar">
+        <div class="step-circle" id="sc3">3</div>
+        <span class="step-label" id="sl3">Seus dados</span>
+      </div>
+      <div class="step-line-bar" id="sline3"></div>
+      <div class="step-item-bar">
+        <div class="step-circle" id="sc4">4</div>
+        <span class="step-label" id="sl4">Confirmação</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+
+    <!-- STEP 1: SERVIÇO -->
+    <div id="step1">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">✂️ Escolha o serviço</div>
+          <span class="badge badge-blue" id="serviceCount">5 serviços</span>
+        </div>
+        <div class="card-body">
+          <div class="services-list" id="servicesList">
+            <!-- Preenchido via JS -->
+          </div>
+        </div>
+      </div>
+      <div class="nav-buttons" style="border:none;padding-top:0;">
+        <button class="btn btn-primary btn-block btn-lg" id="nextToStep2">Próximo: Escolher data →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: DATA E HORA -->
+    <div id="step2" style="display:none;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📅 Escolha a data</div>
+        </div>
+        <div class="card-body">
+          <div class="calendar active" id="calendar">
+            <div class="cal-header">
+              <button class="cal-nav" id="prevMonth">‹</button>
+              <div class="cal-title" id="calTitle">Abril 2026</div>
+              <button class="cal-nav" id="nextMonth">›</button>
+            </div>
+            <div class="cal-grid" id="calGrid">
+              <!-- Preenchido via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="slotsCard" style="display:none;">
+        <div class="card-header">
+          <div class="card-title">⏰ Horários disponíveis</div>
+          <span class="badge badge-success" id="slotsCount">8 disponíveis</span>
+        </div>
+        <div class="card-body">
+          <div class="slots-grid" id="slotsGrid">
+            <!-- Preenchido via JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" id="backToStep1">← Voltar</button>
+        <button class="btn btn-primary" id="nextToStep3" style="margin-left:auto;">Próximo: Meus dados →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: DADOS DO CLIENTE -->
+    <div id="step3" style="display:none;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">👤 Seus dados</div>
+        </div>
+        <div class="card-body">
+          <!-- Resumo do agendamento -->
+          <div class="summary-box">
+            <div class="summary-row"><span class="summary-label">Serviço</span><span class="summary-value" id="sum-service">—</span></div>
+            <div class="summary-row"><span class="summary-label">Data</span><span class="summary-value" id="sum-date">—</span></div>
+            <div class="summary-row"><span class="summary-label">Horário</span><span class="summary-value" id="sum-time">—</span></div>
+            <div class="summary-row"><span class="summary-label">Duração</span><span class="summary-value" id="sum-duration">—</span></div>
+            <div class="summary-row"><span class="summary-label">Valor</span><span class="summary-value price" id="sum-price">—</span></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Seu nome completo *</label>
+            <input class="form-input" type="text" id="clientName" placeholder="Ex: João Silva" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp *</label>
+            <input class="form-input" type="tel" id="clientPhone" placeholder="(48) 99999-9999" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email (opcional)</label>
+            <input class="form-input" type="email" id="clientEmail" placeholder="seu@email.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" id="backToStep2">← Voltar</button>
+        <button class="btn btn-primary" id="confirmBtn" style="margin-left:auto;">✅ Confirmar agendamento</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: SUCESSO -->
+    <div id="step4" style="display:none;">
+      <div class="card">
+        <div class="card-body">
+          <div class="success-screen active">
+            <div class="success-icon-big">🎉</div>
+            <h2>Agendamento confirmado!</h2>
+            <p>Seu horário foi reservado com sucesso. Anote os detalhes abaixo e não se esqueça do seu compromisso!</p>
+
+            <div class="success-detail">
+              <div class="success-detail-row"><span style="color:var(--gray-text);">Barbearia</span><span id="conf-barber" style="font-weight:600;">Barbearia do Zé</span></div>
+              <div class="success-detail-row"><span style="color:var(--gray-text);">Serviço</span><span id="conf-service" style="font-weight:600;">—</span></div>
+              <div class="success-detail-row"><span style="color:var(--gray-text);">Data e hora</span><span id="conf-datetime" style="font-weight:600;">—</span></div>
+              <div class="success-detail-row"><span style="color:var(--gray-text);">Duração</span><span id="conf-duration" style="font-weight:600;">—</span></div>
+              <div class="success-detail-row"><span style="color:var(--gray-text);">Valor</span><span id="conf-price" style="font-weight:700;color:var(--blue);">—</span></div>
+              <div class="success-detail-row"><span style="color:var(--gray-text);">Cliente</span><span id="conf-name" style="font-weight:600;">—</span></div>
+            </div>
+
+            <div class="cancel-info" style="margin-bottom:20px;">
+              ℹ️ Para cancelar ou remarcar, entre em contato diretamente com a barbearia via WhatsApp.
+            </div>
+
+            <a id="whatsappBtn" href="#" target="_blank" class="btn btn-primary btn-block btn-lg" style="background:#25D366;box-shadow:0 8px 30px rgba(37,211,102,.3);">
+              💬 Enviar confirmação no WhatsApp
+            </a>
+            <button class="btn btn-secondary btn-block" style="margin-top:10px;" onclick="window.location.reload()">
+              📅 Fazer outro agendamento
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="page-footer">
+    Agendamento via <a href="../../index.html">JP Barber</a> · desenvolvido por <a href="https://jpdevdigitalweb.netlify.app/" target="_blank">JP Dev</a>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../js/supabase.js"></script>
+<script src="../../js/auth.js"></script>
+<script src="../../js/barbershop.js"></script>
+<script src="../../js/services.js"></script>
+<script src="../../js/booking.js"></script>
+<script src="../../js/agendamento-script.js"></script>
+</body>
+</html>

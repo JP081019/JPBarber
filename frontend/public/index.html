@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JP Barber — Sistema de Agendamento para Barbearias | JP Dev Soluções Digitais</title>
+  <meta name="description" content="Sistema completo de agendamento online para barbearias. Organize sua agenda, evite conflitos de horário e profissionalize seu negócio.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="/jpbarber/frontend/assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/jpbarber/frontend/css/style.css" />
+    <link rel="stylesheet" href="/jpbarber/frontend/css/public.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span>JP <span class="brand">Barber</span></span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="planos.html">Planos</a>
+      <a href="login.html">Login</a>
+    </div>
+    <div class="nav-cta">
+      <a href="cadastro.html" class="btn btn-primary btn-sm">Começar grátis →</a>
+      <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+  <div class="container">
+    <div class="grid-2">
+      <div class="fade-in-up">
+        <div class="hero-eyebrow"><span class="dot"></span>Sistema de Agendamento para Barbearias</div>
+        <h1 class="display-xl">Sua agenda<br>organizada,<br><span class="highlight">sem esforço.</span></h1>
+        <p class="hero-desc">Agenda online, controle de serviços e clientes — tudo em um só lugar. Pare de perder horário e comece a profissionalizar sua barbearia hoje.</p>
+        <div class="hero-actions">
+          <a href="cadastro.html" class="btn btn-primary btn-xl">🚀 Começar grátis</a>
+          <a href="#como-funciona" class="btn btn-secondary btn-xl">👁 Ver como funciona</a>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-in-up-2">
+        <div class="mockup-browser">
+          <div class="mockup-bar">
+            <div class="mockup-dots"><span></span><span></span><span></span></div>
+            <div class="mockup-url">jpbarber.com/barbearia-do-ze</div>
+          </div>
+          <div class="mockup-content">
+            <div class="mini-header">
+              <span class="mini-title">📅 Agenda de Hoje</span>
+              <span class="badge badge-blue">Ao vivo</span>
+            </div>
+            <div class="mini-agenda">
+              <div class="agenda-item">
+                <div class="agenda-time">09:00</div>
+                <div class="agenda-info"><div class="agenda-name">Carlos Mendes</div><div class="agenda-service">Corte + Barba · 45min</div></div>
+                <span class="badge badge-success" style="font-size:.62rem;">Confirmado</span>
+              </div>
+              <div class="agenda-item">
+                <div class="agenda-time">10:00</div>
+                <div class="agenda-info"><div class="agenda-name">Rafael Lima</div><div class="agenda-service">Corte Social · 30min</div></div>
+                <span class="badge badge-success" style="font-size:.62rem;">Confirmado</span>
+              </div>
+              <div class="agenda-item">
+                <div class="agenda-time">11:00</div>
+                <div class="agenda-info"><div class="agenda-name">— Disponível</div><div class="agenda-service">Horário livre</div></div>
+                <span class="badge" style="background:#f1f5f9;color:#64748b;font-size:.62rem;">Livre</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float-badge float-1">
+          <span style="font-size:1.2rem;">🔔</span>
+          <div><div style="font-size:.72rem;color:var(--gray-text);">Novo agendamento!</div><div style="font-size:.8rem;">Pedro · 14:00</div></div>
+        </div>
+        <div class="float-badge float-2">
+          <span style="font-size:1.2rem;">✅</span>
+          <div><div style="font-size:.72rem;color:var(--gray-text);">Confirmado</div><div style="font-size:.8rem;">Sem conflitos</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="section problems-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">O Problema</div>
+      <h2 class="display-md">Sua barbearia perde dinheiro<br>com agenda desorganizada?</h2>
+      <p>Horários esquecidos, clientes sem confirmação e conflitos de agenda custam caro todo mês.</p>
+    </div>
+    <div class="grid-3">
+      <div class="problem-card reveal">
+        <div class="problem-icon">📵</div>
+        <h3>Agenda no WhatsApp</h3>
+        <p>Confirmações perdidas, clientes desmarcando de última hora e você sem controle do seu dia.</p>
+      </div>
+      <div class="problem-card reveal" style="transition-delay:.1s;">
+        <div class="problem-icon">⏰</div>
+        <h3>Horários sobrepostos</h3>
+        <p>Dois clientes no mesmo horário. Situação embaraçosa que mancha a reputação da sua barbearia.</p>
+      </div>
+      <div class="problem-card reveal" style="transition-delay:.2s;">
+        <div class="problem-icon">💸</div>
+        <h3>Faturamento invisível</h3>
+        <p>Você não sabe quanto faturou no mês, quais serviços mais rendem ou quais dias são mais cheios.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUÇÃO -->
+<section class="section" style="background:var(--gray-light);" id="funcionalidades">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">A Solução</div>
+      <h2 class="display-md">JP Barber resolve tudo isso<br>automaticamente</h2>
+      <p>Um sistema intuitivo que organiza, monitora e profissionaliza o agendamento da sua barbearia.</p>
+    </div>
+    <div class="grid-3">
+      <div class="solution-card reveal"><div class="solution-icon">📅</div><h3>Agenda inteligente</h3><p>Controle total de horários em tempo real. O sistema bloqueia automaticamente os slots ocupados — zero conflitos.</p></div>
+      <div class="solution-card reveal" style="transition-delay:.1s;"><div class="solution-icon">🔗</div><h3>Link exclusivo</h3><p>Cada barbearia recebe uma URL única. O cliente acessa, escolhe o serviço e agenda — sem te mandar mensagem.</p></div>
+      <div class="solution-card reveal" style="transition-delay:.2s;"><div class="solution-icon">✂️</div><h3>Gestão de serviços</h3><p>Cadastre cortes, barba, sobrancelha e mais. Defina preço e duração — o sistema calcula os horários disponíveis.</p></div>
+      <div class="solution-card reveal" style="transition-delay:.3s;"><div class="solution-icon">📊</div><h3>Dashboard completo</h3><p>Total de agendamentos, estimativa de faturamento e dias mais movimentados. Tome decisões com dados reais.</p></div>
+      <div class="solution-card reveal" style="transition-delay:.4s;"><div class="solution-icon">🔔</div><h3>Notificações</h3><p>Confirmações automáticas para o cliente. No Premium, você recebe alerta no WhatsApp a cada novo agendamento.</p></div>
+      <div class="solution-card reveal" style="transition-delay:.5s;"><div class="solution-icon">📱</div><h3>Funciona em qualquer tela</h3><p>Celular, tablet ou computador. Tanto o barbeiro quanto o cliente têm a melhor experiência em qualquer dispositivo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <div class="container">
+    <div class="grid-2">
+      <div class="reveal">
+        <div class="section-eyebrow">Como funciona</div>
+        <h2 class="display-md" style="margin-bottom:16px;">Simples assim.<br>Configure e comece.</h2>
+        <p style="color:var(--gray-text);margin-bottom:40px;font-size:1rem;line-height:1.7;">Em 4 passos simples você tem uma agenda profissional funcionando para sua barbearia.</p>
+        <div class="steps-container">
+          <div class="step-item"><div class="step-number">1</div><div class="step-content"><h3>Crie sua conta</h3><p>Cadastre o nome da barbearia, seus serviços e configure os horários de funcionamento.</p></div></div>
+          <div class="step-item"><div class="step-number">2</div><div class="step-content"><h3>Compartilhe seu link</h3><p>Envie o link personalizado para seus clientes via WhatsApp, Instagram ou bio do perfil.</p></div></div>
+          <div class="step-item"><div class="step-number">3</div><div class="step-content"><h3>Cliente agenda online</h3><p>Ele escolhe o serviço, a data e o horário disponível. Sem te ligar, sem mandar mensagem.</p></div></div>
+          <div class="step-item"><div class="step-number">4</div><div class="step-content"><h3>Você gerencia tudo</h3><p>Acompanhe no painel: confirme, cancele ou marque como realizado com um clique.</p></div></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="transition-delay:.2s;display:flex;justify-content:center;">
+        <div class="demo-panel">
+          <div class="demo-panel-header">
+            <span class="demo-panel-title">📅 Horários disponíveis</span>
+            <span class="badge badge-blue">Hoje</span>
+          </div>
+          <div class="demo-slots">
+            <div class="slot"><div><div class="slot-time">09:00</div><div class="slot-info">Corte Social · 30min</div></div><span style="background:#fee2e2;color:#dc2626;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">Ocupado</span></div>
+            <div class="slot"><div><div class="slot-time">09:30</div><div class="slot-info">Qualquer serviço</div></div><span style="background:#d1fae5;color:#059669;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">Disponível</span></div>
+            <div class="slot"><div><div class="slot-time">10:00</div><div class="slot-info">Qualquer serviço</div></div><span style="background:#d1fae5;color:#059669;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">Disponível</span></div>
+            <div class="slot"><div><div class="slot-time">10:30</div><div class="slot-info">Corte + Barba · 45min</div></div><span style="background:#fee2e2;color:#dc2626;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">Ocupado</span></div>
+            <div class="slot"><div><div class="slot-time">11:15</div><div class="slot-info">Qualquer serviço</div></div><span style="background:#d1fae5;color:#059669;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">Disponível</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-sm">
+  <div class="cta-section reveal">
+    <div style="position:relative;z-index:1;">
+      <h2 class="display-md">Pronto para profissionalizar<br>sua barbearia?</h2>
+      <p>Configure sua agenda em menos de 5 minutos. Sem cartão de crédito para começar.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="cadastro.html" class="btn btn-white btn-xl">🚀 Criar minha conta grátis</a>
+        <a href="#como-funciona" class="btn btn-xl" style="background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3);">👁 Ver como funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="section contact-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Contato</div>
+      <h2 class="display-md">Fale com a gente</h2>
+      <p>Estamos aqui para ajudar. Entre em contato pelo canal de sua preferência.</p>
+    </div>
+    <div class="contact-links reveal">
+      <a href="https://wa.me/5548996656319" target="_blank" class="contact-link"><span style="font-size:1.2rem;">📱</span><div><div style="font-weight:600;font-size:.85rem;">WhatsApp</div><div style="font-size:.75rem;color:var(--gray-text);">+55 (48) 99656-6319</div></div></a>
+      <a href="https://instagram.com/jp.dev081019" target="_blank" class="contact-link"><span style="font-size:1.2rem;">📸</span><div><div style="font-weight:600;font-size:.85rem;">Instagram</div><div style="font-size:.75rem;color:var(--gray-text);">@jp.dev081019</div></div></a>
+      <a href="mailto:joao081019pedrodasilv@gmail.com" class="contact-link"><span style="font-size:1.2rem;">📧</span><div><div style="font-weight:600;font-size:.85rem;">Email</div><div style="font-size:.75rem;color:var(--gray-text);">joao081019pedrodasilv@gmail.com</div></div></a>
+      <a href="https://jpdevdigitalweb.netlify.app/" target="_blank" class="contact-link"><span style="font-size:1.2rem;">🌐</span><div><div style="font-weight:600;font-size:.85rem;">Site oficial</div><div style="font-size:.75rem;color:var(--gray-text);">jpdevdigitalweb.netlify.app</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 JP Dev Soluções Digitais. Todos os direitos reservados.</p>
+  <p>Desenvolvido por João Pedro da Silva</p>
+</footer>
+
+<script src="../js/payment.js"></script>
+
+<script>
+  // Navbar scroll
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('mobile-open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(function(a) {
+    a.addEventListener('click', function() { document.getElementById('navLinks').classList.remove('mobile-open'); });
+  });
+
+  // Scroll reveal
+  var revObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function(el) { revObs.observe(el); });
+
+  // Counter
+  function animCounter(el, target) {
+    var start = 0, step = target / (1200 / 16);
+    (function tick() {
+      start += step;
+      if (start < target) { el.textContent = Math.floor(start).toLocaleString('pt-BR'); requestAnimationFrame(tick); }
+      else { el.textContent = target.toLocaleString('pt-BR'); }
+    })();
+  }
+  var cObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { animCounter(e.target, parseInt(e.target.dataset.counter)); cObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-counter]').forEach(function(el) { cObs.observe(el); });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>

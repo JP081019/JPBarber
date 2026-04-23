@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Entrar — JP Barber | JP Dev Soluções Digitais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/jpbarber/frontend/assets/img/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/jpbarber/frontend/css/style.css">
+  <link rel="stylesheet" href="/jpbarber/frontend/css/public.css">
+</head>
+<body>
+
+<div class="login-grid">
+
+  <!-- ========== LEFT PANEL ========== -->
+  <div class="login-left">
+    <div class="login-left-inner">
+
+      <div class="login-brand">
+        <div class="login-brand-name">JP Barber <span>· JP Dev</span></div>
+      </div>
+
+      <h2>Bem-vindo de volta<br>ao JP Barber</h2>
+      <p class="sub">Gerencie sua agenda, controle seus clientes e profissionalize sua barbearia com praticidade.</p>
+
+      <div class="login-features">
+        <div class="login-feature"><span class="chk">✓</span> Agenda inteligente sem conflitos de horário</div>
+        <div class="login-feature"><span class="chk">✓</span> Link exclusivo para seus clientes agendarem</div>
+        <div class="login-feature"><span class="chk">✓</span> Dashboard com métricas de faturamento</div>
+        <div class="login-feature"><span class="chk">✓</span> Acesso de qualquer dispositivo</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== RIGHT PANEL ========== -->
+  <div class="login-right">
+    <div class="login-form-wrap">
+
+      <div class="login-heading">
+        <h1>Entrar na sua conta</h1>
+        <p>Use suas credenciais para acessar o painel da barbearia</p>
+      </div>
+
+      <!-- Erro -->
+      <div class="alert alert-danger" id="loginError">
+        <span>⚠️</span>
+        <span id="loginErrorMsg">Erro ao fazer login</span>
+      </div>
+
+      <div class="login-card">
+        <form id="loginForm" autocomplete="on">
+
+          <div class="form-group">
+            <label class="form-label" for="email">📧 Email</label>
+            <input class="form-input" type="email" id="email" name="email"
+              placeholder="seu@email.com" autocomplete="email" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">🔒 Senha</label>
+            <div class="pw-wrap">
+              <input class="form-input" type="password" id="password" name="password"
+                placeholder="••••••••" autocomplete="current-password" style="padding-right:42px;" required>
+              <button type="button" class="pw-toggle" id="togglePass">👁</button>
+            </div>
+          </div>
+
+          <div class="form-row-between">
+            <label class="remember-label">
+              <input type="checkbox" style="width:15px;height:15px;accent-color:var(--blue);">
+              Lembrar de mim
+            </label>
+            <a href="#" class="forgot-link">Esqueci a senha</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="loginBtn">
+            <span id="loginBtnText">Entrar no sistema →</span>
+          </button>
+        </form>
+
+      <p style="text-align:center;margin-top:20px;font-size:.83rem;color:var(--gray-text);">
+        Não tem uma conta? <a href="cadastro.html" style="color:var(--blue);font-weight:500;">Cadastre sua barbearia →</a>
+      </p>
+      <div style="text-align:center;margin-top:16px;">
+        <a href="index.html" style="font-size:.82rem;color:var(--gray-text);">← Voltar ao site</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT FOOTER -->
+<div class="login-footer-bar">
+  <a href="https://wa.me/5548996656319" target="_blank" class="contact-link">
+    <span>📱</span>
+    <div><div style="font-weight:600;font-size:.83rem;">WhatsApp</div><div style="font-size:.72rem;color:var(--gray-text);">+55 (48) 99656-6319</div></div>
+  </a>
+  <a href="https://instagram.com/jp.dev081019" target="_blank" class="contact-link">
+    <span>📸</span>
+    <div><div style="font-weight:600;font-size:.83rem;">Instagram</div><div style="font-size:.72rem;color:var(--gray-text);">@jp.dev081019</div></div>
+  </a>
+  <a href="mailto:joao081019pedrodasilv@gmail.com" class="contact-link">
+    <span>📧</span>
+    <div><div style="font-weight:600;font-size:.83rem;">Email</div><div style="font-size:.72rem;color:var(--gray-text);">joao081019pedrodasilv@gmail.com</div></div>
+  </a>
+  <a href="https://jpdevdigitalweb.netlify.app/" target="_blank" class="contact-link">
+    <span>🌐</span>
+    <div><div style="font-weight:600;font-size:.83rem;">Site oficial</div><div style="font-size:.72rem;color:var(--gray-text);">jpdevdigitalweb.netlify.app</div></div>
+  </a>
+</div>
+
+<footer>
+  <p>© 2026 JP Dev Soluções Digitais. Todos os direitos reservados.</p>
+  <p>Desenvolvido por João Pedro da Silva</p>
+</footer>
+
+<!-- 1º: SDK do Supabase via CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- 2º: nosso arquivo de conexão -->
+<script src="/jpbarber/frontend/js/supabase.js"></script>
+<!-- 3º: demais arquivos JS da página -->
+<script src="/jpbarber/frontend/js/auth.js"></script>
+
+<script>
+  // Toggle senha
+  document.getElementById('togglePass').addEventListener('click', function() {
+    var p = document.getElementById('password');
+    p.type = p.type === 'password' ? 'text' : 'password';
+    this.textContent = p.type === 'password' ? '👁' : '🙈';
+  });
+ 
+  // Mostrar erro
+  function showError(msg) {
+    var box = document.getElementById('loginError');
+    document.getElementById('loginErrorMsg').textContent = msg;
+    box.style.display = 'flex';
+  }
+ 
+  // Submit
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  var email    = document.getElementById('email').value.trim();
+  var password = document.getElementById('password').value.trim();
+  var btn      = document.getElementById('loginBtn');
+  var btnText  = document.getElementById('loginBtnText');
+
+  document.getElementById('loginError').style.display = 'none';
+
+  if (!email || !password) { showError('Preencha o email e a senha.'); return; }
+
+  btn.disabled = true;
+  btnText.textContent = 'Entrando...';
+
+  var resultado = await fazerLogin(email, password);
+
+  if (!resultado.ok) {
+    showError(resultado.message);
+    btn.disabled = false;
+    btnText.textContent = 'Entrar no sistema →';
+    return;
+  }
+
+  // Login ok — redireciona para o painel
+  window.location.href = '/jpbarber/frontend/admin/dashboard.html';
+});
+</script>
+</body>
+</html>
